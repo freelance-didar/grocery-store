@@ -1,0 +1,15 @@
+[project]
+name = "grocery-store"
+version = "0.1.0"
+description = "Production-grade backend for an online grocery store."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [
+    { name = "Didar" }
+]
+
+dependencies = []
+
+[tool.uv]
+package = false
