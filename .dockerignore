@@ -1,0 +1,170 @@
+# ======================================================
+# .dockerignore – Gitignore‑style file for Docker builds
+# ======================================================
+
+# --- System files (from .gitignore) ---
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.AppleDouble
+.LSOverride
+.directory
+*~
+*.swp
+*.swo
+*.bak
+*.orig
+*.patch
+*.diff
+
+# --- Editors and IDEs ---
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.iml
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyc
+*.so
+*.egg
+*.egg-info/
+*.manifest
+*.spec
+.python-version
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# --- Testing and coverage ---
+.coverage
+htmlcov/
+.coverage.*
+*.cover
+.hypothesis/
+.pytest_cache/
+test-results/
+junit.xml
+
+# --- Databases ---
+*.sqlite3
+*.db
+*.sql
+pg_data/
+*.dump
+*.rdb
+
+# --- Logs and debug files ---
+*.log
+logs/
+*.pot
+
+# --- Environment variables ---
+.env
+.env.*
+!.env.example
+.env.local
+.env.development
+.env.test
+.env.production
+.env.staging
+
+# --- Node.js and frontend ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dist/
+build/
+static/
+staticfiles/
+media/
+assets/
+*.min.js
+*.min.css
+.sass-cache/
+.jekyll-cache/
+
+# --- Documentation ---
+docs/_build/
+site/
+
+# --- Archives and binaries ---
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.dmg
+*.exe
+*.bin
+
+# --- Docker (extended) ---
+docker-compose.override.yml
+docker-data/
+# (added specifically for Docker)
+.dockerignore
+Dockerfile
+docker-compose*.yml   # all compose files except maybe the base one
+*.dockerignore
+.docker/
+
+# --- Jupyter (already covered, but kept for clarity) ---
+.ipynb_checkpoints/
+
+# --- GitHub and CI/CD ---
+.github/
+.gitattributes
+.gitmodules
+
+# --- Additional common ignores ---
+*.DS_Store
+[Tt]humbs.db
+[Tt]humbs.db:encryptable
+ehthumbs_vista.db
+
+# ======================================================
+# Docker‑specific entries (not present in .gitignore)
+# ======================================================
+
+# Version control (not needed inside the image)
+.git/
+
+# Temporary build files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Docker runtime folders
+.docker/
+docker-compose.override.yml
+docker-data/
+
+# Local development files that might accidentally be copied
+README.md   # uncomment if you don't need docs inside the image
+LICENSE
+CONTRIBUTING.md
+
+# Environment files (already covered, but just in case)
+.env.local
+.env.*.local
+
+# Package manager caches (besides node_modules)
+.pip-cache/
+.npm/
+.yarn/
+.cache/

@@ -1,0 +1,71 @@
+name: grocery-store
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: grocery_postgres
+
+    restart: unless-stopped
+
+    env_file:
+      - .env
+
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+    ports:
+      - "5433:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+    networks:
+      - grocery_network
+
+  pgadmin:
+    image: dpage/pgadmin4:9.16
+    container_name: grocery_pgadmin
+
+    restart: unless-stopped
+
+    env_file:
+      - .env
+
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+
+    ports:
+      - "5050:80"
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+    networks:
+      - grocery_network
+
+volumes:
+  postgres_data:
+    name: grocery_postgres_data
+
+  pgadmin_data:
+    name: grocery_pgadmin_data
+
+networks:
+  grocery_network:
+    name: grocery_network
+    driver: bridge
+    
