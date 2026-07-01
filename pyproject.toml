@@ -7,7 +7,7 @@ requires-python = ">=3.12"
 license = { text = "MIT" }
 
 authors = [
-    { name = "Didar" },
+    { name = "Didar" }
 ]
 
 dependencies = [
@@ -20,14 +20,78 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "ruff",
-    "mypy",
-    "pytest",
-    "pytest-django",
-    "factory-boy",
-    "pre-commit",
-    "bandit",
+    "ruff>=0.12.0",
+    "mypy>=1.17.0",
+    "pytest>=8.4.1",
+    "pytest-django>=4.11.1",
+    "pytest-cov>=6.2.1",
+    "factory-boy>=3.3.3",
+    "bandit>=1.8.6",
+    "pre-commit>=4.2.0",
+    "django-upgrade>=1.28.0",
+    "semgrep>=1.130.0",
+    "django-stubs[compatible-mypy]>=5.2.0",
 ]
 
-[tool.uv]
-package = false
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "I",
+    "UP",
+    "B",
+    "SIM",
+    "C4",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"config/settings/local.py" = ["F403", "F405"]
+"config/settings/production.py" = ["F403", "F405"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+
+[tool.mypy]
+python_version = "3.12"
+
+plugins = [
+    "mypy_django_plugin.main",
+    "pydantic.mypy",
+]
+
+warn_return_any = true
+warn_unused_configs = true
+pretty = true
+
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.local"
+python_files = [
+    "test_*.py",
+    "*_test.py",
+    "tests.py",
+]
+testpaths = [
+    "tests",
+]
+
+[tool.coverage.run]
+branch = true
+source = [
+    ".",
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+fail_under = 85
+
+[tool.django-stubs]
+django_settings_module = "config.settings.local"
